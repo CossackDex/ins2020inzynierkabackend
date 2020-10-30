@@ -7,6 +7,11 @@ verify_ssl = true
 
 [packages]
 flask = "*"
+flask-marshmallow = "*"
+flask-sqlalchemy = "*"
+mysql-connector-python = "*"
+pyjwt = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"

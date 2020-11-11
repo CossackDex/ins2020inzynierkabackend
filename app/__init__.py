@@ -19,22 +19,22 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
 
-    from .model import User
+    from .models import User, UserSurvey
 
     with app.app_context():
         # Import all blueprints
-        from .admin import admin_routes
-        from .rest_jwt import jwt_rest_routes
-        from .user import user_routes
-        from .services import services_routes
+        # from .admin import admin_routes
+        # from .rest_jwt import jwt_rest_routes
+        # from .user import user_routes
+        # from .services import services_routes
 
         # Register blueprints
-        app.register_blueprint(admin_routes.admin_bp)
-        app.register_blueprint(jwt_rest_routes.jwt_rest_bp)
-        app.register_blueprint(user_routes.user_bp)
-        app.register_blueprint(services_routes.services_bp)
-        # db.drop_all()
-        # db.create_all()
+        # app.register_blueprint(admin_routes.admin_bp)
+        # app.register_blueprint(jwt_rest_routes.jwt_rest_bp)
+        # app.register_blueprint(user_routes.user_bp)
+        # app.register_blueprint(services_routes.services_bp)
+        db.drop_all()
+        db.create_all()
 
         # Create superuser
         # Create if statement for checking is superuser is already created

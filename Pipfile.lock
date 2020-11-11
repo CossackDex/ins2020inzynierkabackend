@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bdfc0760eeb543116ddb8b9e4ab48673ffbb376a515ea5fb46d0ab36a9289379"
+            "sha256": "7c88b72fe84f65458b73fb08bd98f0993a66c54faeafa3eaac068f2d1d306a59"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -101,10 +101,18 @@
         },
         "marshmallow": {
             "hashes": [
-                "sha256:2272273505f1644580fbc66c6b220cc78f893eb31f1ecde2af98ad28011e9811",
-                "sha256:47911dd7c641a27160f0df5fd0fe94667160ffe97f70a42c3cc18388d86098cc"
+                "sha256:73facc37462dfc0b27f571bdaffbef7709e19f7a616beb3802ea425b07843f4e",
+                "sha256:e26763201474b588d144dae9a32bdd945cd26a06c943bc746a6882e850475378"
             ],
-            "version": "==3.8.0"
+            "version": "==3.9.1"
+        },
+        "marshmallow-sqlalchemy": {
+            "hashes": [
+                "sha256:098d4486374d0c63b4a947269c36d8850eedf35c59f172c5a1da28c070af64f4",
+                "sha256:cf0c7fead0b30ad66892a0cefcb39151591842ab16ca48ffa5bd816719b2491e"
+            ],
+            "index": "pypi",
+            "version": "==0.24.0"
         },
         "mysql-connector-python": {
             "hashes": [
@@ -165,6 +173,14 @@
             ],
             "index": "pypi",
             "version": "==1.7.1"
+        },
+        "pymysql": {
+            "hashes": [
+                "sha256:263040d2779a3b84930f7ac9da5132be0fefcd6f453a885756656103f8ee1fdd",
+                "sha256:44f47128dda8676e021c8d2dbb49a82be9e4ab158b9f03e897152a3a287c69ea"
+            ],
+            "index": "pypi",
+            "version": "==0.10.1"
         },
         "python-dotenv": {
             "hashes": [

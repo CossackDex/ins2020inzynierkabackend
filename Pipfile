@@ -12,6 +12,8 @@ flask-sqlalchemy = "*"
 mysql-connector-python = "*"
 pyjwt = "*"
 python-dotenv = "*"
+pymysql = "*"
+marshmallow-sqlalchemy = "*"
 
 [requires]
 python_version = "3.8"

@@ -23,12 +23,12 @@ def create_app():
 
     with app.app_context():
         # Import all blueprints
-        # from .admin import admin_routes
-        # from .user import user_routes
+        from .admin import admin_routes
+        from .user import user_routes
 
         # Register blueprints
-        # app.register_blueprint(admin_routes.admin_bp)
-        # app.register_blueprint(user_routes.user_bp)
+        app.register_blueprint(admin_routes.admin_bp)
+        app.register_blueprint(user_routes.user_bp)
         db.drop_all()
         db.create_all()
 

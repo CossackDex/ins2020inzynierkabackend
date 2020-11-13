@@ -3,7 +3,9 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 
 from ..decorators import required_login
-from ..models import User, db
+from ..models import User, db, Book, UserSurvey
+from ..utilities import parse_user_preferences
+from ..schema import BookSchema
 
 user_bp = Blueprint('user_bp', __name__)
 
@@ -78,3 +80,34 @@ def user_force_password_change():
         return jsonify(message='password for user - {} has been changed'.format(user_username.username))
     else:
         return jsonify(message='provided username and email not connected with same account'), 401
+
+
+@user_bp.route('/dashboard/user/book_predictions', methods=['GET'])
+@required_login
+def create_predictions(user):
+    books_list = list()
+    user_survey = UserSurvey.query.filter_by(user_id=user.id).first()
+    if not user_survey:
+        return jsonify(message='user - {} has no survey in db'.format(user.username)), 204
+    user_survey = parse_user_preferences(user_survey=user_survey)
+    for programming_language in user_survey['programming_languages']:
+        for topic in user_survey['topics']:
+            for publisher in user_survey['publisher']:
+                books = Book.query.filter_by(programming_language=programming_language, topic=topic,
+                                             publisher=publisher).all()
+                if books:
+                    books_list.extend(books)
+                else:
+                    continue
+    if not books_list:
+        return jsonify(message='no books to recommend'), 204
+    if 'length_dontcare' in user_survey['length']:
+        books_list.sort(key=lambda x: x.ratio)
+        books_schema = BookSchema(many=True)
+        return jsonify(books=books_schema.dump(books_list)), 200
+    for i, book in enumerate(books_list):
+        if book.length not in user_survey['length']:
+            books_list.pop(i)
+    books_list.sort(key=lambda x: x.ratio)
+    books_schema = BookSchema(many=True)
+    return jsonify(books=books_schema.dump(books_list)), 200

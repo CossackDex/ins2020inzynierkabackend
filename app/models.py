@@ -29,7 +29,7 @@ class User(db.Model):
 class UserSurvey(db.Model):
     __tablename__ = "users_sourvey"
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user_data_auth.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_data_auth.id'), unique=True, nullable=False)
     created_data = db.Column(db.DateTime, default=datetime.now)
     user_metadata = db.relationship('User', backref='user_survey')
 
@@ -112,10 +112,13 @@ class Book(db.Model):
     publisher = db.Column(db.String(80), unique=False, nullable=False)
     topic = db.Column(db.String(80), unique=False, nullable=False)
     number_of_pages = db.Column(db.Integer, unique=False, nullable=False)
-    length = db.Column(db.Integer, unique=False, nullable=False)
+    length = db.Column(db.String(80), unique=False, nullable=False)
     creator_id = db.Column(db.Integer, db.ForeignKey('user_data_auth.id'), nullable=False)
     created_data = db.Column(db.DateTime, default=datetime.now)
     user_metadata = db.relationship('User', backref='book_data')
+    likes = db.Column(db.Integer, unique=False, default=1)
+    dislikes = db.Column(db.Integer, unique=False, default=1)
+    ratio = db.Column(db.Float, unique=False, default=1)
 
     def __init__(self, **kwargs):
         self.title = kwargs['title'] if kwargs['title'] is not None else False
@@ -127,10 +130,8 @@ class Book(db.Model):
         self.topic = kwargs['topic'] if kwargs['topic'] is not None else False
         self.number_of_pages = kwargs['number_of_pages'] if kwargs['number_of_pages'] is not None else False
         if self.number_of_pages > 400:
-            self.length = 4
-        elif self.number_of_pages > 300:
-            self.length = 3
+            self.length = 'long'
         elif self.number_of_pages > 200:
-            self.length = 2
+            self.length = 'medium'
         else:
-            self.length = 1
+            self.length = 'short'

@@ -30,6 +30,7 @@ class UserSurvey(db.Model):
     __tablename__ = "users_sourvey"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user_data_auth.id'), nullable=False)
+    created_data = db.Column(db.DateTime, default=datetime.now)
     user_metadata = db.relationship('User', backref='user_survey')
 
     # programming languages
@@ -102,10 +103,34 @@ class UserSurvey(db.Model):
 
 
 class Book(db.Model):
+    __tablename__ = "book_data"
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), unique=False, nullable=False)
+    author = db.Column(db.String(80), unique=False, nullable=False)
+    pub_year = db.Column(db.Integer, unique=False, nullable=False)
+    programming_language = db.Column(db.String(80), unique=False, nullable=False)
+    publisher = db.Column(db.String(80), unique=False, nullable=False)
+    topic = db.Column(db.String(80), unique=False, nullable=False)
+    number_of_pages = db.Column(db.Integer, unique=False, nullable=False)
+    length = db.Column(db.Integer, unique=False, nullable=False)
+    creator_id = db.Column(db.Integer, db.ForeignKey('user_data_auth.id'), nullable=False)
+    created_data = db.Column(db.DateTime, default=datetime.now)
+    user_metadata = db.relationship('User', backref='book_data')
 
-    def __init__(self):
-
-
-class BookMetaData(db.Model)
-
-    def __init__(self):
+    def __init__(self, **kwargs):
+        self.title = kwargs['title'] if kwargs['title'] is not None else False
+        self.author = kwargs['author'] if kwargs['author'] is not None else False
+        self.pub_year = kwargs['pub_year'] if kwargs['pub_year'] is not None else False
+        self.programming_language = kwargs['programming_language'] if kwargs[
+                                                                          'programming_language'] is not None else False
+        self.publisher = kwargs['publisher'] if kwargs['publisher'] is not None else False
+        self.topic = kwargs['topic'] if kwargs['topic'] is not None else False
+        self.number_of_pages = kwargs['number_of_pages'] if kwargs['number_of_pages'] is not None else False
+        if self.number_of_pages > 400:
+            self.length = 4
+        elif self.number_of_pages > 300:
+            self.length = 3
+        elif self.number_of_pages > 200:
+            self.length = 2
+        else:
+            self.length = 1

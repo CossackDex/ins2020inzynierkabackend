@@ -82,7 +82,7 @@ def user_force_password_change():
         return jsonify(message='provided username and email not connected with same account'), 401
 
 
-@user_bp.route('/dashboard/user/book_predictions', methods=['GET'])
+@user_bp.route('/dashboard/user/predict_book', methods=['GET'])
 @required_login
 def create_predictions(user):
     books_list = list()

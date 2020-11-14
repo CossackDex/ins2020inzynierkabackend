@@ -135,3 +135,13 @@ class Book(db.Model):
             self.length = 'medium'
         else:
             self.length = 'short'
+
+    def like(self):
+        self.likes += 1
+        self.ratio = self.likes / self.dislikes
+        return True
+
+    def dislike(self):
+        self.dislike += 1
+        self.ratio = self.likes / self.dislikes
+        return True

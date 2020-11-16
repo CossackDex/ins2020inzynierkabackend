@@ -121,17 +121,17 @@ class Book(db.Model):
     ratio = db.Column(db.Float, unique=False, default=1)
 
     def __init__(self, **kwargs):
-        self.title = kwargs['title'] if kwargs['title'] is not None else False
-        self.author = kwargs['author'] if kwargs['author'] is not None else False
-        self.pub_year = kwargs['pub_year'] if kwargs['pub_year'] is not None else False
-        self.programming_language = kwargs['programming_language'] if kwargs[
-                                                                          'programming_language'] is not None else False
-        self.publisher = kwargs['publisher'] if kwargs['publisher'] is not None else False
-        self.topic = kwargs['topic'] if kwargs['topic'] is not None else False
-        self.number_of_pages = kwargs['number_of_pages'] if kwargs['number_of_pages'] is not None else False
-        if self.number_of_pages > 400:
+        self.title = kwargs['title']
+        self.author = kwargs['author']
+        self.pub_year = kwargs['pub_year']
+        self.programming_language = kwargs['programming_language']
+        self.publisher = kwargs['publisher']
+        self.topic = kwargs['topic']
+        self.creator_id = kwargs['creator_id'].id
+        self.number_of_pages = kwargs['number_of_pages']
+        if int(self.number_of_pages) > 400:
             self.length = 'long'
-        elif self.number_of_pages > 200:
+        elif int(self.number_of_pages) > 200:
             self.length = 'medium'
         else:
             self.length = 'short'

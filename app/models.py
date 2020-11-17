@@ -67,6 +67,7 @@ class UserSurvey(db.Model):
     publisher_dontcare = db.Column(db.Boolean, nullable=False, unique=False, default=False)
 
     def __init__(self, **kwargs):
+        self.user_id = kwargs['user_id'].id
         self.java = kwargs['java'] if kwargs['java'] is not None else False
         self.python = kwargs['python'] if kwargs['python'] is not None else False
         self.js = kwargs['js'] if kwargs['js'] is not None else False

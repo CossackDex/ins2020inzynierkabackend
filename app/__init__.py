@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
@@ -18,6 +19,7 @@ def create_app():
     # Init Plugins
     db.init_app(app)
     ma.init_app(app)
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
     from .models import User, UserSurvey
 

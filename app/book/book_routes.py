@@ -8,7 +8,7 @@ from ..schema import BookSchema
 book_bp = Blueprint('book_bp', __name__)
 
 
-@book_bp.route('/dashboard/books/post', methods=['POST'])
+@book_bp.route('/dashboard/books', methods=['POST'])
 @required_login
 @required_admin
 def add_book(user=None):
@@ -32,7 +32,7 @@ def add_book(user=None):
     return jsonify(message='book - {} has been created'.format(new_book.title)), 201
 
 
-@book_bp.route('/dashboard/books/get', methods=['GET'])
+@book_bp.route('/dashboard/books', methods=['GET'])
 @required_login
 def get_books(user=None):
     books_list = Book.query.all()

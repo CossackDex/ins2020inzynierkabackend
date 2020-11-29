@@ -86,22 +86,22 @@ class UserSurvey(db.Model):
         self.algorithms = kwargs['algorithms'] if kwargs['algorithms'] is not None else False
         self.softwaredev = kwargs['softwaredev'] if kwargs['softwaredev'] is not None else False
         # prefered book length
-        self.long = kwargs['long'] if kwargs['long'] is not None else False
-        self.medium = kwargs['medium'] if kwargs['medium'] is not None else False
-        self.short = kwargs['short'] if kwargs['short'] is not None else False
-        self.length_dontcare = kwargs['length_dontcare'] if kwargs['length_dontcare'] is not None else False
+        self.long = kwargs['long'] if kwargs['long'] else False
+        self.medium = kwargs['medium'] if kwargs['medium'] else False
+        self.short = kwargs['short'] if kwargs['short'] else False
+        self.length_dontcare = kwargs['length_dontcare'] if kwargs['length_dontcare'] else False
         # publishers
         self.the_pragmatic_bookshelf = kwargs['the_paragmatic_booksheld'] if kwargs[
-                                                                                 'the_paragmatic_booksheld'] is not None else False
+            'the_paragmatic_booksheld'] else False
         self.manning_publications = kwargs['manning_publications'] if kwargs[
-                                                                          'manning_publications'] is not None else False
-        self.oreilly_media = kwargs['oreilly_media'] if kwargs['oreilly_media'] is not None else False
-        self.peachpit = kwargs['peachpit'] if kwargs['peachpit'] is not None else False
-        self.no_starch_press = kwargs['no_starch_press'] if kwargs['no_starch_press'] is not None else False
-        self.packt_publishing = kwargs['packt_publishing'] if kwargs['packt_publishing'] is not None else False
-        self.que = kwargs['que'] if kwargs['que'] is not None else False
-        self.leanpub = kwargs['leanpub'] if kwargs['leanpub'] is not None else False
-        self.publisher_dontcare = kwargs['publisher_dontcare'] if kwargs['publisher_dontcare'] is not None else False
+            'manning_publications'] else False
+        self.oreilly_media = kwargs['oreilly_media'] if kwargs['oreilly_media'] else False
+        self.peachpit = kwargs['peachpit'] if kwargs['peachpit'] else False
+        self.no_starch_press = kwargs['no_starch_press'] if kwargs['no_starch_press'] else False
+        self.packt_publishing = kwargs['packt_publishing'] if kwargs['packt_publishing'] else False
+        self.que = kwargs['que'] if kwargs['que'] else False
+        self.leanpub = kwargs['leanpub'] if kwargs['leanpub'] else False
+        self.publisher_dontcare = kwargs['publisher_dontcare'] if kwargs['publisher_dontcare'] else False
 
 
 class Book(db.Model):

@@ -12,6 +12,7 @@ class User(db.Model):
     superuser = db.Column(db.Boolean, nullable=False, default=False)
     password_hash = db.Column(db.String(256), nullable=False, unique=False)
     is_banned = db.Column(db.Boolean, nullable=False, unique=False, default=False)
+    survey_completed = db.Column(db.Boolean, nullable=False, unique=False, default=False)
     force_password_change = db.Column(db.Boolean, nullable=False, unique=False, default=False)
     created_date = db.Column(db.DateTime, default=datetime.now)
 

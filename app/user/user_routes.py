@@ -31,7 +31,8 @@ def signup():
 @required_login
 def user_options(user):
     user_data = dict(username=user.username, email=user.email, role=user.role, id=user.id,
-                     created_date=user.created_date, superuser=user.superuser, is_banned=user.is_banned)
+                     created_date=user.created_date, superuser=user.superuser, is_banned=user.is_banned,
+                     survey_completed=user.survey_completed)
     return jsonify(user_data), 200
 
 

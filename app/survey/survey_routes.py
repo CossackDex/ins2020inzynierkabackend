@@ -30,6 +30,11 @@ def survey_post(user=None):
         db.session.commit()
     except IntegrityError as e:
         return jsonify(message="db error", error_message=str(e.orig)), 404
+    user.survey_completed = True
+    try:
+        db.session.commit()
+    except IntegrityError as e:
+        return jsonify(message="db error", error_message=str(e.orig)), 404
     return jsonify(message='survey for user - {} has been created'.format(user.username)), 200
 
 

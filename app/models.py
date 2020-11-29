@@ -84,7 +84,7 @@ class UserSurvey(db.Model):
         self.machinelearning = kwargs['machinelearning'] if kwargs['machinelearning'] is not None else False
         self.database = kwargs['database'] if kwargs['database'] is not None else False
         self.algorithms = kwargs['algorithms'] if kwargs['algorithms'] is not None else False
-        self.softwaredev = kwargs['soft'] if kwargs['soft'] is not None else False
+        self.softwaredev = kwargs['softwaredev'] if kwargs['softwaredev'] is not None else False
         # prefered book length
         self.long = kwargs['long'] if kwargs['long'] is not None else False
         self.medium = kwargs['medium'] if kwargs['medium'] is not None else False

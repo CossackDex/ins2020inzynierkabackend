@@ -28,11 +28,13 @@ def create_app():
         from .admin import admin_routes
         from .user import user_routes
         from .book import book_routes
+        from .survey import survey_routes
 
         # Register blueprints
         app.register_blueprint(admin_routes.admin_bp)
         app.register_blueprint(user_routes.user_bp)
         app.register_blueprint(book_routes.book_bp)
+        app.register_blueprint(survey_routes.survey_bp)
         # db.drop_all()
         # db.create_all()
 

@@ -47,7 +47,7 @@ def get_book(user=None, book_id=None):
     if book is None:
         return jsonify(message="book doesn't exist in db"), 404
     books_schema = BookSchema()
-    return jsonify({'book': books_schema.dump(book)}), 200
+    return jsonify({books_schema.dump(book)}), 200
 
 
 @book_bp.route('/dashboard/books/<book>/put', methods=['PUT'])

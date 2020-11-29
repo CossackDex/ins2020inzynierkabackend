@@ -40,10 +40,10 @@ def get_books(user=None):
     return jsonify({'books': books_schema.dump(books_list)}), 200
 
 
-@book_bp.route('/dashboard/books/<book>/get', methods=['GET'])
+@book_bp.route('/dashboard/books/<book_id>', methods=['GET'])
 @required_login
-def get_book(user=None, book=None):
-    book = Book.query.filter_by(title=str(book.title)).first()
+def get_book(user=None, book_id=None):
+    book = Book.query.filter_by(id=book_id).first()
     if book is None:
         return jsonify(message="book doesn't exist in db"), 404
     books_schema = BookSchema()

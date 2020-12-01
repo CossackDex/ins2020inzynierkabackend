@@ -97,6 +97,8 @@ def create_predictions(user):
                 books = Book.query.filter_by(programming_language=programming_language, topic=topic,
                                              publisher=publisher).all()
                 if books:
+                    if books in books_list:
+                        continue
                     books_list.extend(books)
                 else:
                     continue

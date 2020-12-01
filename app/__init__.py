@@ -5,10 +5,12 @@ from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
+from flask_admin import Admin
 
-# Gblobally accessible libraries
+# Globally accessible libraries
 db = SQLAlchemy()
 ma = Marshmallow()
+flask_adminer = Admin(name='adminekes')
 
 
 def create_app():
@@ -18,10 +20,11 @@ def create_app():
 
     # Init Plugins
     db.init_app(app)
+    flask_adminer.init_app(app)
     ma.init_app(app)
     cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-    from .models import User, UserSurvey
+    from .models import User, UserSurvey, Book
 
     with app.app_context():
         # Import all blueprints
@@ -29,12 +32,14 @@ def create_app():
         from .user import user_routes
         from .book import book_routes
         from .survey import survey_routes
+        from .flask_admin import flask_admin_routes
 
         # Register blueprints
         app.register_blueprint(admin_routes.admin_bp)
         app.register_blueprint(user_routes.user_bp)
         app.register_blueprint(book_routes.book_bp)
         app.register_blueprint(survey_routes.survey_bp)
+        app.register_blueprint(flask_admin_routes.flask_admin_bp)
         # db.drop_all()
         # db.create_all()
 
@@ -52,4 +57,3 @@ def create_app():
             db.session.commit()
 
         return app
-

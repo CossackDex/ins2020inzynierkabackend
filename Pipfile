@@ -15,6 +15,7 @@ python-dotenv = "*"
 pymysql = "*"
 marshmallow-sqlalchemy = "*"
 flask-cors = "*"
+flask-admin = "*"
 
 [requires]
 python_version = "3.8"

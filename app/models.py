@@ -143,6 +143,6 @@ class Book(db.Model):
         return True
 
     def dislike(self):
-        self.dislike += 1
+        self.dislikes += 1
         self.ratio = self.likes / self.dislikes
         return True

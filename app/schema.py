@@ -68,3 +68,6 @@ class BookSchema(ma.SQLAlchemySchema):
     length = ma.auto_field()
     creator_id = ma.auto_field()
     created_data = ma.auto_field()
+    likes = ma.auto_field()
+    dislikes = ma.auto_field()
+    ratio = ma.auto_field()

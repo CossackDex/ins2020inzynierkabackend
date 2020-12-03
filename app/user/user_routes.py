@@ -111,6 +111,6 @@ def create_predictions(user):
     for i, book in enumerate(books_list):
         if book.length not in user_survey['length']:
             books_list.pop(i)
-    books_list.sort(key=lambda x: x.ratio)
+    books_list.sort(key=lambda x: x.ratio, reverse=True)
     books_schema = BookSchema(many=True)
     return jsonify(books=books_schema.dump(books_list)), 200

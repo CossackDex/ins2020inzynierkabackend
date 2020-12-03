@@ -62,7 +62,7 @@ def survey_manage(user=None):
             return jsonify(message="db error", error_message=str(e.orig)), 404
         return jsonify(message='survey for user - {} has been created'.format(user.username)), 200
     elif request.method == "DELETE":
-        survey = UserSurvey.query.filtery_by(user_id=user.id).first()
+        survey = UserSurvey.query.filter_by(user_id=user.id).first()
         if survey is None:
             return jsonify(message="survey doesn't exist in db"), 404
         db.session.delete(survey)
@@ -72,7 +72,7 @@ def survey_manage(user=None):
             return jsonify(message="db error", error_message=str(e.orig)), 404
         return jsonify(message="survey deleted"), 200
     else:
-        survey = UserSurvey.query.filtery_by(user_id=user.id).first()
+        survey = UserSurvey.query.filter_by(user_id=user.id).first()
         if survey is None:
             return jsonify(message="survey doesn't exist in db"), 404
         survey_schema = UserSurveySchema()

@@ -76,4 +76,4 @@ def survey_manage(user=None):
         if survey is None:
             return jsonify(message="survey doesn't exist in db"), 404
         survey_schema = UserSurveySchema()
-        return jsonify({'survey': survey_schema.dump(survey)}), 200
+        return jsonify({survey_schema.dump(survey)}), 200

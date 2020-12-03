@@ -46,8 +46,16 @@ def get_book(user=None, book_id=None):
     book = Book.query.filter_by(id=book_id).first()
     if book is None:
         return jsonify(message="book doesn't exist in db"), 404
+    if book in user.liked_books:
+        like_vote = True
+    else:
+        like_vote = False
+    if book in user.disliked_books:
+        dislike_vote = True
+    else:
+        dislike_vote = False
     books_schema = BookSchema()
-    return jsonify(books_schema.dump(book)), 200
+    return jsonify(books_schema.dump(book), like_vote, dislike_vote), 200
 
 
 @book_bp.route('/dashboard/books/<book>/put', methods=['PUT'])

@@ -55,7 +55,10 @@ def get_book(user=None, book_id=None):
     else:
         dislike_vote = False
     books_schema = BookSchema()
-    return jsonify(books_schema.dump(book), like_vote, dislike_vote), 200
+    return_dict = books_schema.dump(book)
+    return_dict['like_vote'] = like_vote
+    return_dict['dislike_vote'] = dislike_vote
+    return jsonify(return_dict), 200
 
 
 @book_bp.route('/dashboard/books/<book>/put', methods=['PUT'])

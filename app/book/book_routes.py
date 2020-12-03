@@ -90,21 +90,27 @@ def delete_book(user=None, book=None):
 @required_login
 def like_book(user=None, id=None):
     book_data = Book.query.filter_by(id=id).first()
+    if book_data in user.liked_books:
+        return jsonify(message="user - {} has already like book - {}".format(user.username, book_data.title)), 400
     book_data.like()
+    user.liked_books.append(book_data)
     try:
         db.session.commit()
     except IntegrityError as e:
         return jsonify(message="db error", error_message=str(e.orig)), 404
-    return jsonify(message='book - {} has been liked'.format(book_data.title)), 200
+    return jsonify(message='book - {} has been liked'.format(book_data.title), likes=book_data.likes), 200
 
 
 @book_bp.route('/dashboard/books/<id>/dislike', methods=['GET'])
 @required_login
 def dislike_book(user=None, id=None):
     book_data = Book.query.filter_by(id=id).first()
+    if book_data in user.disliked_books:
+        return jsonify(message="user - {} has already dislike book - {}".format(user.username, book_data.title)), 400
     book_data.dislike()
+    user.disliked_books.append(book_data)
     try:
         db.session.commit()
     except IntegrityError as e:
         return jsonify(message="db error", error_message=str(e.orig)), 404
-    return jsonify(message='book - {} has been disliked'.format(book_data.title)), 200
+    return jsonify(message='book - {} has been disliked'.format(book_data.title), dislikes=book_data.dislikes), 200

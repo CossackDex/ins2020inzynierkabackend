@@ -2,6 +2,14 @@ from datetime import datetime
 
 from . import db
 
+like_table = db.Table('like_table',
+                      db.Column('user_id', db.Integer, db.ForeignKey('user_data_auth.id'), primary_key=True),
+                      db.Column('book_id', db.Integer, db.ForeignKey('book_data.id'), primary_key=True))
+
+dislike_table = db.Table('dislike_table',
+                         db.Column('user_id', db.Integer, db.ForeignKey('user_data_auth.id'), primary_key=True),
+                         db.Column('book_id', db.Integer, db.ForeignKey('book_data.id'), primary_key=True))
+
 
 class User(db.Model):
     __tablename__ = "user_data_auth"
@@ -15,6 +23,8 @@ class User(db.Model):
     survey_completed = db.Column(db.Boolean, nullable=False, unique=False, default=False)
     force_password_change = db.Column(db.Boolean, nullable=False, unique=False, default=False)
     created_date = db.Column(db.DateTime, default=datetime.now)
+    liked_books = db.relationship('Book', secondary=like_table, backref="user_data_1")
+    disliked_books = db.relationship('Book', secondary=dislike_table, backref="user_data_2")
 
     def __init__(self, role=False, superuser=False, **kwargs):
         self.username = kwargs['username']

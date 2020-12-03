@@ -31,6 +31,7 @@ def survey_post(user=None):
     except IntegrityError as e:
         return jsonify(message="db error", error_message=str(e.orig)), 404
     user.survey_completed = True
+    # user.survey_id = new_survey.id
     try:
         db.session.commit()
     except IntegrityError as e:
@@ -42,7 +43,8 @@ def survey_post(user=None):
 @required_login
 def survey_manage(user=None):
     if request.method == "PUT":
-        old_survey = UserSurvey.query.filtery_by(user_id=user.id).first()
+
+        old_survey = UserSurvey.query.filter_by(user_id=user.id).first()
         if old_survey is None:
             return jsonify(message="survey doesn't exist in db"), 404
         data = request.get_json()

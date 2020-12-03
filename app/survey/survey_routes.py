@@ -38,11 +38,11 @@ def survey_post(user=None):
     return jsonify(message='survey for user - {} has been created'.format(user.username)), 200
 
 
-@survey_bp.route('/dashboard/surveys/<id>', methods=['GET', 'PUT', 'DELETE'])
+@survey_bp.route('/dashboard/survey', methods=['GET', 'PUT', 'DELETE'])
 @required_login
-def survey_manage(user=None, id=None):
+def survey_manage(user=None):
     if request.method == "PUT":
-        old_survey = UserSurvey.query.filtery_by(id=id).first()
+        old_survey = UserSurvey.query.filtery_by(user_id=user.id).first()
         if old_survey is None:
             return jsonify(message="survey doesn't exist in db"), 404
         data = request.get_json()
@@ -60,7 +60,7 @@ def survey_manage(user=None, id=None):
             return jsonify(message="db error", error_message=str(e.orig)), 404
         return jsonify(message='survey for user - {} has been created'.format(user.username)), 200
     elif request.method == "DELETE":
-        survey = UserSurvey.query.filtery_by(id=id).first()
+        survey = UserSurvey.query.filtery_by(user_id=user.id).first()
         if survey is None:
             return jsonify(message="survey doesn't exist in db"), 404
         db.session.delete(survey)
@@ -70,7 +70,7 @@ def survey_manage(user=None, id=None):
             return jsonify(message="db error", error_message=str(e.orig)), 404
         return jsonify(message="survey deleted"), 200
     else:
-        survey = UserSurvey.query.filtery_by(id=id).first()
+        survey = UserSurvey.query.filtery_by(user_id=user.id).first()
         if survey is None:
             return jsonify(message="survey doesn't exist in db"), 404
         survey_schema = UserSurveySchema()

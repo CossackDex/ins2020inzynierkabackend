@@ -79,22 +79,22 @@ class UserSurvey(db.Model):
 
     def __init__(self, **kwargs):
         self.user_id = kwargs['user_id'].id
-        self.java = kwargs['java'] if kwargs['java'] is not None else False
-        self.python = kwargs['python'] if kwargs['python'] is not None else False
-        self.js = kwargs['js'] if kwargs['js'] is not None else False
-        self.csharp = kwargs['csharp'] if kwargs['csharp'] is not None else False
-        self.cpp = kwargs['cpp'] if kwargs['cpp'] is not None else False
-        self.go = kwargs['go'] if kwargs['go'] is not None else False
-        self.r = kwargs['r'] if kwargs['r'] is not None else False
-        self.swift = kwargs['swift'] if kwargs['swift'] is not None else False
-        self.php = kwargs['php'] if kwargs['php'] is not None else False
-        self.sql = kwargs['sql'] if kwargs['sql'] is not None else False
+        self.java = kwargs['java'] if 'java' in kwargs else False
+        self.python = kwargs['python'] if 'python' in kwargs else False
+        self.js = kwargs['js'] if 'js' in kwargs else False
+        self.csharp = kwargs['csharp'] if 'csharp' in kwargs else False
+        self.cpp = kwargs['cpp'] if 'cpp' in kwargs else False
+        self.go = kwargs['go'] if 'go' in kwargs else False
+        self.r = kwargs['r'] if 'r' in kwargs else False
+        self.swift = kwargs['swift'] if 'swift' in kwargs else False
+        self.php = kwargs['php'] if 'php' in kwargs else False
+        self.sql = kwargs['sql'] if 'sql' in kwargs else False
         # book topics
-        self.webdev = kwargs['webdev'] if kwargs['webdev'] is not None else False
-        self.machinelearning = kwargs['machinelearning'] if kwargs['machinelearning'] is not None else False
-        self.database = kwargs['database'] if kwargs['database'] is not None else False
-        self.algorithms = kwargs['algorithms'] if kwargs['algorithms'] is not None else False
-        self.softwaredev = kwargs['softwaredev'] if kwargs['softwaredev'] is not None else False
+        self.webdev = kwargs['webdev'] if 'webdev' in kwargs else False
+        self.machinelearning = kwargs['machinelearning'] if 'machinelearning' in kwargs else False
+        self.database = kwargs['database'] if 'database' in kwargs else False
+        self.algorithms = kwargs['algorithms'] if 'algorithms' in kwargs else False
+        self.softwaredev = kwargs['softwaredev'] if 'softwaredev' in kwargs else False
         # prefered book length
         self.long = kwargs['long'] if 'long' in kwargs else False
         self.medium = kwargs['medium'] if 'medium' in kwargs else False

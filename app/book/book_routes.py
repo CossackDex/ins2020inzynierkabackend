@@ -103,6 +103,15 @@ def like_book(user=None, id=None):
     book_data = Book.query.filter_by(id=id).first()
     if book_data in user.liked_books:
         return jsonify(message="user - {} has already like book - {}".format(user.username, book_data.title)), 400
+    if book_data in user.disliked_books:
+        book_data.like(dislike=True)
+        user.disliked_books.remove(book_data)
+        user.liked_books.append(book_data)
+        try:
+            db.session.commit()
+        except IntegrityError as e:
+            return jsonify(message="db error", error_message=str(e.orig)), 404
+        return jsonify(message='book - {} has been liked'.format(book_data.title), likes=book_data.likes), 200
     book_data.like()
     user.liked_books.append(book_data)
     try:
@@ -118,6 +127,15 @@ def dislike_book(user=None, id=None):
     book_data = Book.query.filter_by(id=id).first()
     if book_data in user.disliked_books:
         return jsonify(message="user - {} has already dislike book - {}".format(user.username, book_data.title)), 400
+    if book_data in user.liked_books:
+        book_data.dislike(like=True)
+        user.liked_books.remove(book_data)
+        user.disliked_books.append(book_data)
+        try:
+            db.session.commit()
+        except IntegrityError as e:
+            return jsonify(message="db error", error_message=str(e.orig)), 404
+        return jsonify(message='book - {} has been disliked'.format(book_data.title), dislikes=book_data.dislikes), 200
     book_data.dislike()
     user.disliked_books.append(book_data)
     try:

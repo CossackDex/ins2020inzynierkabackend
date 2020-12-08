@@ -147,12 +147,16 @@ class Book(db.Model):
         else:
             self.length = 'short'
 
-    def like(self):
+    def like(self, dislike=True):
         self.likes += 1
+        if self.dislikes > 1 and dislike == True:
+            self.dislikes -= 1
         self.ratio = self.likes / self.dislikes
         return True
 
-    def dislike(self):
+    def dislike(self, like=True):
         self.dislikes += 1
+        if self.likes > 1 and like == True:
+            self.likes -= 1
         self.ratio = self.likes / self.dislikes
         return True

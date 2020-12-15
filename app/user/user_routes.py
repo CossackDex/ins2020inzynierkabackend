@@ -91,17 +91,28 @@ def create_predictions(user):
     if not user_survey:
         return jsonify(message='user - {} has no survey in db'.format(user.username)), 204
     user_survey = parse_user_preferences(user_survey=user_survey)
-    for programming_language in user_survey['programming_languages']:
-        for topic in user_survey['topics']:
-            for publisher in user_survey['publisher']:
-                books = Book.query.filter_by(programming_language=programming_language, topic=topic,
-                                             publisher=publisher).all()
+    if 'publisher_doncare' in user_survey['publisher']:
+        for programming_language in user_survey['programming_languages']:
+            for topic in user_survey['topics']:
+                books = Book.query.filter_by(programming_language=programming_language, topic=topic).all()
                 if books:
                     if books in books_list:
                         continue
                     books_list.extend(books)
                 else:
                     continue
+    else:
+        for programming_language in user_survey['programming_languages']:
+            for topic in user_survey['topics']:
+                for publisher in user_survey['publisher']:
+                    books = Book.query.filter_by(programming_language=programming_language, topic=topic,
+                                                 publisher=publisher).all()
+                    if books:
+                        if books in books_list:
+                            continue
+                        books_list.extend(books)
+                    else:
+                        continue
     if not books_list:
         return jsonify(message='no books to recommend'), 204
     if 'length_dontcare' in user_survey['length']:
@@ -111,6 +122,8 @@ def create_predictions(user):
     for i, book in enumerate(books_list):
         if book.length not in user_survey['length']:
             books_list.pop(i)
+    if not books_list:
+        return jsonify(message='no books to recommend'), 204
     books_list.sort(key=lambda x: x.ratio, reverse=True)
     books_schema = BookSchema(many=True)
     return jsonify(books=books_schema.dump(books_list)), 200

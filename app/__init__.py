@@ -28,14 +28,12 @@ def create_app():
 
     with app.app_context():
         # Import all blueprints
-        from .admin import admin_routes
         from .user import user_routes
         from .book import book_routes
         from .survey import survey_routes
         from .flask_admin import flask_admin_routes
 
         # Register blueprints
-        app.register_blueprint(admin_routes.admin_bp)
         app.register_blueprint(user_routes.user_bp)
         app.register_blueprint(book_routes.book_bp)
         app.register_blueprint(survey_routes.survey_bp)

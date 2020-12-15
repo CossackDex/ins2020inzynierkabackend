@@ -91,7 +91,7 @@ def create_predictions(user):
     if not user_survey:
         return jsonify(message='user - {} has no survey in db'.format(user.username)), 204
     user_survey = parse_user_preferences(user_survey=user_survey)
-    if 'publisher_doncare' in user_survey['publisher']:
+    if 'publisher_dontcare' in user_survey['publisher']:
         for programming_language in user_survey['programming_languages']:
             for topic in user_survey['topics']:
                 books = Book.query.filter_by(programming_language=programming_language, topic=topic).all()
